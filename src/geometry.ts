@@ -14,6 +14,22 @@ export class Point {
     }
 }
 
+type Direction = "N" | "S" | "E" | "W";
+
+class Pose {
+    position: Point;
+    heading: Direction;
+
+    constructor( position: Point, heading: Direction ) {
+        this.position = position.copy();
+        this.heading = heading;
+    }
+
+    copy() {
+        return new Pose(this.position.copy(), this.heading);
+    }
+}
+
 export class Box {
     readonly min: Point;
     readonly max: Point;
