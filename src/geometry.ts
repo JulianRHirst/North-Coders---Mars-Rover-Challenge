@@ -7,6 +7,10 @@ export class Point {
     constructor (x: number, y:number) {
         this.x = x;
         this.y = y;
+    };
+
+    copy( ) : Point {
+        return new Point(this.x,this.y);
     }
 }
 
@@ -16,11 +20,15 @@ export class Box {
 
     constructor( min: Point, max: Point) {
         assert(min.x<=max.x && min.y<=max.y);
-        this.min = { ...min };
-        this.max = { ...max};
+        this.min = min.copy();
+        this.max = max.copy();
     };
 
-    isWithin(point: Point):boolean {
+    copy() : Box {
+        return new Box(this.min.copy(), this.max.copy());
+    }
+
+    contains(point: Point):boolean {
         return (
                 (point.x >= this.min.x) &&
                 (point.y >= this.min.y) &&
