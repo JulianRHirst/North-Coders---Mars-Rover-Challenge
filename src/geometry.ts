@@ -9,14 +9,15 @@ export class Point {
         this.y = y;
     };
 
-    copy( ) : Point {
+    copy() : Point {
         return new Point(this.x,this.y);
     }
 }
 
-type Direction = "N" | "S" | "E" | "W";
+export type Direction  = "N"|"E"|"S"|"W";
 
-class Pose {
+export class Pose {
+    
     position: Point;
     heading: Direction;
 
