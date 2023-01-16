@@ -1,6 +1,6 @@
 import{Box, Point} from "geometry";
 import assert from 'node:assert/strict';
-import {print, clear} from "console";
+import {clear} from "./console";
 
 class DisplayBox {
     area: Box;
@@ -16,12 +16,10 @@ class DisplayBox {
 
     render(clearScreen:boolean) {
         if(clearScreen)
-            clear();
+            console.clear();
 
-        this.buffer.forEach((row) => print(row.join("")));
+        this.buffer.forEach((row) => console.log(row.join('')));
     }
-
-    
 
     setLocation(point:Point, fill: string) {
         this.buffer[point.y-this.area.min.y][point.x-this.area.min.x] = fill;

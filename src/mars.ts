@@ -1,4 +1,4 @@
-import {Box, Point} from "geometry";
+import {Box, Point} from "./geometry";
 
 type ObstacleType = "Debris" | "Cliff" | "Chasm";
 

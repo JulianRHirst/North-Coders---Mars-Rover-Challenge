@@ -1,5 +1,5 @@
-import { Pose, Point, Direction } from "geometry";
-import {Terrain} from "mars";
+import { Pose, Point, Direction } from "./geometry";
+import {Terrain} from "./mars";
 
 export type Order = "L"|"R"|"M"|"H"
 
@@ -36,7 +36,8 @@ export class Lander {
     };
 
     vehicleForward = ():string => {
-        this.pose.position.x = moveVector[this.pose.heading].x;
+        this.pose.position.x += moveVector[this.pose.heading].x;
+        this.pose.position.y += moveVector[this.pose.heading].y;
         return "";
 
     };
@@ -55,16 +56,19 @@ export class Lander {
         this.pose = new Pose(new Point(initialX, initialY), facing );
     }
 
-    missionReport(mapo: Terrain, orders: Order[]):string {
-        const missionReport: string ="PLACEHOLDER";
+    missionReport(map: Terrain, orders: string):string {
 
-        orders
-            .forEach( (order) => {
-                this.orderLookup[order]();
-            }
+        console.clear();
+       
+        if (!/^[LRMH]+$/.test(orders))
+            return "0 Mission Aborted - Invalid Orders!";
 
-         )
-         
-         return `${this.pose.position.x} ${this.pose.position.y} ${this.pose.heading}`;
+        const orderArray = orders.split('') as Order[];
 
+        orderArray.forEach( (order) => {
+            this.orderLookup[order]();
+        });
+        return `${this.pose.position.x} ${this.pose.position.y} ${this.pose.heading}`;
+        
+    }
 }

@@ -1,12 +1,13 @@
-import { Point, Direction } from "geometry";
-import {BasicPlateau, Terrain } from "mars";
-import {readFileSync, closeSync} from "fs";
-import {Lander} from "probe";
+import { Point, Direction } from "./geometry";
+import {BasicPlateau, Terrain } from "./mars";
+import {readFileSync} from "fs";
+import {Lander, Order} from "./lander";
 
-export const MISSION_ERROR_NO_SUCH_FILE = "Erro: no such file!"
+export const ERROR_MISSION_NO_SUCH_FILE = "Error: no such file!";
 
 export function doPlateauMission (filename: string):string[] {
-    const input = readFileSync('input.txt', 'utf8').split('\r\n').map(row => row.split(" "));
+    console.log("filename = ", filename);
+    const input = readFileSync(filename, {encoding:'utf8'}).split('\r\n').map(row => row.split(" "));
     const plateau = new BasicPlateau (+input[0][0], +input[0][1]);
     const missionReport:string[] = [];
 
