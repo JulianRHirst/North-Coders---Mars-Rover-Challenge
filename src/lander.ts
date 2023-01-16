@@ -1,5 +1,5 @@
 import { Pose, Point, Direction } from "./geometry";
-import {Terrain} from "./mars";
+import {Terrain} from "./geography";
 
 export type Order = "L"|"R"|"M"|"H"
 
@@ -57,11 +57,9 @@ export class Lander {
     }
 
     missionReport(map: Terrain, orders: string):string {
-
-        console.clear();
-       
+   
         if (!/^[LRMH]+$/.test(orders))
-            return "0 Mission Aborted - Invalid Orders!";
+            return "0 Lander Mission Aborted - Invalid Orders!";
 
         const orderArray = orders.split('') as Order[];
 

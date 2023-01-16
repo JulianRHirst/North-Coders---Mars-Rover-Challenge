@@ -1,5 +1,8 @@
 import {Box, Point} from "./geometry";
 
+export const GEOLOGY_ERROR = {
+    BASIC_PLATEAU_NEGATIVE_COORDS: "Basic plateau requires positive coordinates."
+};
 type ObstacleType = "Debris" | "Cliff" | "Chasm";
 
 export class Obstacle {
@@ -31,6 +34,8 @@ export class Terrain {
 
 export class BasicPlateau extends Terrain {
     constructor ( maxx: number, maxy:number ) {
+        if( maxx <1 || maxy <1) throw new Error(GEOLOGY_ERROR.BASIC_PLATEAU_NEGATIVE_COORDS);
+
         super(new Box(new Point(0,0), new Point(maxx, maxy)), []);
     }
 }

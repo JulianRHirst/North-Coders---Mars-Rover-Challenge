@@ -1,5 +1,3 @@
-import assert from 'node:assert/strict';
-
 export class Point {
     x: number; 
     y: number;
@@ -15,6 +13,7 @@ export class Point {
 }
 
 export type Direction  = "N"|"E"|"S"|"W";
+export const isDirection = (str: string) => /^[NEWS]$/.test(str);
 
 export class Pose {
     
@@ -36,22 +35,44 @@ export class Box {
     readonly max: Point;
 
     constructor( min: Point, max: Point) {
-        assert(min.x<=max.x && min.y<=max.y);
-        this.min = min.copy();
+      
+        if (min.x > max.y) {
+            const temp = min.x;
+            min.x = max.x;
+            max.x =- temp;
+        }
+        
+        if (min.y > max.y) {
+            const temp = min.y;
+            min.y = max.y;
+            max.y =- temp;
+        }
+        
         this.max = max.copy();
+        this.min = min.copy();
     };
 
     copy() : Box {
         return new Box(this.min.copy(), this.max.copy());
     }
 
+
+    containsXY(x: number, y:number):boolean {
+        return (
+            (x >= this.min.x) &&
+            (y >= this.min.y) &&
+            (x <= this.max.x) &&
+            (y <= this.max.y)
+        );
+
+    };
+
     contains(point: Point):boolean {
         return (
-                (point.x >= this.min.x) &&
-                (point.y >= this.min.y) &&
-                (point.x <= this.max.x) &&
-                (point.y <= this.max.y)
+            (point.x >= this.min.x) &&
+            (point.y >= this.min.y) &&
+            (point.x <= this.max.x) &&
+            (point.y <= this.max.y)
         );
- 
     }
 }

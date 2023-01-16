@@ -1,6 +1,5 @@
 import{Box, Point} from "geometry";
 import assert from 'node:assert/strict';
-import {clear} from "./console";
 
 class DisplayBox {
     area: Box;
